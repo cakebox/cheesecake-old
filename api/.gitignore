@@ -1,0 +1,5 @@
+/tmp/
+/logs/
+/app/config/*.php
+composer.lock
+

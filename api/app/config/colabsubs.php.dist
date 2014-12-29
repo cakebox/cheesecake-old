@@ -1,0 +1,22 @@
+<?php
+
+use Monolog\Logger;
+
+/*
+ *
+ * Database Connection
+ *
+ */
+$app["database.dbname"] = "colabsubs";
+$app["database.host"]   = "127.0.0.1";
+$app["database.user"]   = "root";
+$app["database.passwd"] = "";
+
+/*
+ *
+ * Log
+ *
+ */
+$app["log.location"] = __DIR__ . "/../../logs/colabsubs.log";
+$app["log.level"]    = Logger::WARNING;
+

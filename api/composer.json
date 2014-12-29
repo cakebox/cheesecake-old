@@ -1,0 +1,14 @@
+{
+    "name": "colabsubs",
+    "type": "project",
+    "require": {
+        "php": ">=5.4.0",
+
+        "silex/silex": "~1.2",
+        "doctrine/dbal": "~2.5",
+        "monolog/monolog": "1.x"
+    },
+    "config": {
+        "vendor-dir": "tmp/composer/"
+    }
+}

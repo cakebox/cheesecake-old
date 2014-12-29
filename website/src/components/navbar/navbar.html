@@ -1,21 +1,26 @@
-<nav class="navbar navbar-static-top navbar-inverse" ng-controller="NavbarCtrl">
-    <div class="container-fluid">
+<!-- Fixed navbar -->
+<nav class="navbar navbar-inverse navbar-fixed-top" ng-controller="NavbarCtrl">
+    <div class="container">
         <div class="navbar-header">
-            <span class="navbar-brand">
-                Collaborative Laboratory of Subtitles
-            </span>
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#/">Collaborative Laboraty of Subs</a>
         </div>
-
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-6">
+        <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-                <li class="active"><a ng-href="#">Home</a></li>
-                <li><a ng-href="#">About</a></li>
-                <li><a ng-href="#">Contact</a></li>
+                <li ng-class="{active: isActive('/')}"><a href="#/">Home</a></li>
+                <li ng-class="{active: isActive('/tvshows')}"><a href="#/tvshows">TV Shows</a></li>
+                <li ng-class="{active: isActive('/movies')}"><a href="#/movies">Movies</a></li>
             </ul>
-
             <ul class="nav navbar-nav navbar-right">
-                <li>Current date: {{ date | date:'yyyy-MM-dd' }}</li>
+                <li ng-hide="user" ng-class="{active: isActive('/login')}"><a href="#/login">Login</a></li>
+                <li ng-hide="user" ng-class="{active: isActive('/register')}"><a href="#/register">Register</a></li>
+                <li ng-show="user" ng-class="{active: isActive('/account')}"><a href="#/account">My account</a></li>
             </ul>
-        </div>
+        </div><!--/.nav-collapse -->
     </div>
 </nav>

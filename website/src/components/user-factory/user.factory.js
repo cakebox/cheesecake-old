@@ -12,7 +12,7 @@ angular.module('colabsubs')
             }
         };
 
-        User = $resource(apiUrl + '/users/:id_user', null, actions);
+        User = $resource(apiUrl + '/users/:id', null, actions);
         return User;
     })
 ;

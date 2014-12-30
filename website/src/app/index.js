@@ -58,10 +58,13 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
 
         $httpProvider.interceptors.push('jwtInterceptor');
     })
-    .run(function ($rootScope, $window) {
+    .run(function ($rootScope, $window, jwtHelper) {
 
-        if ($window.localStorage.getItem('token') && $window.localStorage.getItem('user') && !$rootScope.user) {
-            $rootScope.user = $window.localStorage.getItem('user');
+        if ($window.localStorage.getItem('token') && !$rootScope.user) {
+            // If the user refresh the page with F5, redecode again the token.
+            // A object can't be saved in localStorage ?
+            var decodedToken = jwtHelper.decodeToken($window.localStorage.getItem('token'))
+            $rootScope.user = decodedToken.user;
         }
     })
 ;

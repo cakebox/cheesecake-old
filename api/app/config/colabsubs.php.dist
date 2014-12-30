@@ -14,9 +14,15 @@ $app["database.passwd"] = "";
 
 /*
  *
+ * API
+ *
+ */
+$app["api.secretKey"] = "";
+
+/*
+ *
  * Log
  *
  */
 $app["log.location"] = __DIR__ . "/../../logs/colabsubs.log";
 $app["log.level"]    = Logger::WARNING;
-

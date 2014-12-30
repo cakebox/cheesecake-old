@@ -6,7 +6,8 @@
 
         "silex/silex": "~1.2",
         "doctrine/dbal": "~2.5",
-        "monolog/monolog": "1.x"
+        "monolog/monolog": "1.x",
+        "firebase/php-jwt": "~1.0"
     },
     "config": {
         "vendor-dir": "tmp/composer/"

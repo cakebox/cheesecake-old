@@ -23,7 +23,7 @@ if (APPLICATION_ENV != "production") {
     $app['controllers']->requireHttps();
 }
 
-require_once __DIR__ . "/config/colabsub.php";
+require_once __DIR__ . "/config/colabsubs.php";
 
 $app->register(new DoctrineServiceProvider(), [
     "db.options" => [
@@ -57,7 +57,7 @@ $app->error(function (\Exception $e, $code) use ($app) {
     return new JsonResponse(["status_code" => $code, "message" => $e->getMessage()]);
 });
 
-//$app->match("{url}", function($url) use ($app) { return "OK"; })->assert('url', '.*')->method("OPTIONS");
+// Black magic to handle OPTIONS with the API
+$app->match("{url}", function($url) use ($app) { return "OK"; })->assert('url', '.*')->method("OPTIONS");
 
 return $app;
-

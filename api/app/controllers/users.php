@@ -117,13 +117,13 @@ function renew_token(Application $app, Request $request, $id) {
         $id = $token["user"]["id"];
 
     $payload = array(
-        "iss" => "http://example.org",
+        "iss" =>  $request->headers->get('referer'),
         "iat" => time(),
         "exp" => time() + 60 * 60 * 24, // expire in 24h
         "user" => [
             "id" => $id,
-            "username" => "test",
-            "isAdmin" => false,
+            "username" => $token["user"]["username"],
+            "isAdmin" => $token["user"]["isAdmin"],
             ]
         );
 

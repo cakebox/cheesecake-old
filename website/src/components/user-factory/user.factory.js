@@ -7,7 +7,7 @@ angular.module('colabsubs')
         actions = {
             login: {
                 method: 'POST',
-                url: apiUrl + '/users',
+                url: apiUrl + '/users/login',
                 skipAuthorization: true
             }
         };

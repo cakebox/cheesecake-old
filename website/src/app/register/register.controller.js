@@ -10,13 +10,14 @@ angular.module('colabsubs')
         $scope.register = function () {
 
             if ($scope.registerForm.password !== $scope.registerForm.passwordConfirm) {
-                console.log('>>> Password don\'t match');
+                $scope.alerts.push({type: 'danger', msg: 'Passwords doesn\'t match.'});
                 $location.path('/register');
             }
 
             var user = new User($scope.registerForm);
             user.$save()
             .then(function(response) {
+                $rootScope.alerts.push({type: 'success', msg: 'Your account has been created.'});
                 console.log(response);
             })
             .catch(function(error) {

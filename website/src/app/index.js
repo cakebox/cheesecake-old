@@ -58,7 +58,7 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
 
         $httpProvider.interceptors.push('jwtInterceptor');
     })
-    .run(function ($rootScope, $window, jwtHelper) {
+    .run(function ($rootScope, $window, $timeout, jwtHelper) {
 
         if ($window.localStorage.getItem('token') && !$rootScope.user) {
             // If the user refresh the page with F5, redecode again the token.
@@ -66,5 +66,19 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
             var decodedToken = jwtHelper.decodeToken($window.localStorage.getItem('token'))
             $rootScope.user = decodedToken.user;
         }
+
+        $rootScope.alerts = [];
+
+        // Every 3secondes alerts are removed
+        // TODO: It's better to set a duration for each alerts, and remove them here if expired
+        // $timeout(function() {
+        //     $rootScope.alerts.forEach(function (element, index, array) {
+        //         array.splice(index, 1);
+        //     })
+        // }, 3000);
+
+        $rootScope.closeAlert = function(index) {
+            $rootScope.alerts.splice(index, 1);
+        };
     })
 ;

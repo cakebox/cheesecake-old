@@ -21,7 +21,7 @@ angular.module('colabsubs')
                     $location.path('/');
                 }
                 else {
-                    console.log('>>> Bad credentials');
+                    $rootScope.alerts.push({type: 'danger', msg: 'Username or password are wrong.'});
                 }
             })
             .catch(function(error) {

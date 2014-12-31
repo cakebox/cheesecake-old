@@ -2,6 +2,8 @@
 
 <div class="container theme-showcase" role="main">
 
+    <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)">{{ alert.msg }}</alert>
+
     <form class="form-signin" ng-submit="login()">
         <h3 class="form-signin-heading">Welcome back! Please sign in</h3>
         <hr>

@@ -2,6 +2,8 @@
 
 <div class="container theme-showcase" role="main">
 
+    <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)">{{ alert.msg }}</alert>
+
     <form class="form-signup" ng-submit="register()">
         <h3 class="form-signup-heading">Register to help to community to translate</h3>
         <hr>

@@ -1,7 +1,8 @@
 'use strict';
 
 angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-jwt'])
-    .constant('apiUrl', '//api.colabsubs.perso.dev')
+    .constant('VERSION', 'v0.0.0')
+    .constant('API_URL', '//api.colabsubs.perso.dev')
     .config(function ($routeProvider, $httpProvider, jwtInterceptorProvider) {
 
         $routeProvider
@@ -58,12 +59,14 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
 
         $httpProvider.interceptors.push('jwtInterceptor');
     })
-    .run(function ($rootScope, $window, $timeout, jwtHelper) {
+    .run(function ($rootScope, $window, $timeout, VERSION, jwtHelper) {
+
+        $rootScope.version = VERSION;
 
         if ($window.localStorage.getItem('token') && !$rootScope.user) {
             // If the user refresh the page with F5, redecode again the token.
             // A object can't be saved in localStorage ?
-            var decodedToken = jwtHelper.decodeToken($window.localStorage.getItem('token'))
+            var decodedToken = jwtHelper.decodeToken($window.localStorage.getItem('token'));
             $rootScope.user = decodedToken.user;
         }
 

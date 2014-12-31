@@ -28,32 +28,67 @@ function check_token(Request $request, Application $app) {
 };
 
 
-$app->post("/users",                  __NAMESPACE__ . "\\login");
+$app->post("/users",                  __NAMESPACE__ . "\\register");
+$app->get("/users/{username}",        __NAMESPACE__ . "\\check_availability");
+$app->post("/users/login",            __NAMESPACE__ . "\\login");
 $app->post("/users/{id}/renew_token", __NAMESPACE__ . "\\renew_token")
     ->assert('id', '\d+');
 $app->get("/users/{id}",              __NAMESPACE__ . "\\user_informations")
     ->assert('id', '\d+');
 
 
-function login(Application $app, Request $request) {
+function register(Application $app, Request $request) {
 
+    $username   = $request->get('username');
     $email      = $request->get('email');
     $password   = $request->get('password');
-    $rememberMe = $request->get('rememberMe');
 
-    if (!$email || !$password) {
+    if (!$username || !$email || !$password) {
         $app->abort(400, "Missing parameters.");
     }
 
-    if ($email == "test@test.com" && $password == "test")
-    {
+    $app['db']->insert('users', [
+        'username' => $username,
+        'password' => password_hash($password, PASSWORD_DEFAULT),
+        'email'    => $email,
+        'last_ip'  => $request->getClientIp()
+        ]
+    );
+
+    return json_encode(["response" => "ok"], JSON_NUMERIC_CHECK);
+}
+
+function check_availability(Application $app, $username) {
+
+    $username_query = "SELECT id FROM users WHERE username = '{$username}'";
+    $username       = $app['db']->fetchAssoc($username_query);
+
+    $isAvailable = (!$username) ? true : false;
+
+    return json_encode(["isAvailable" => $isAvailable], JSON_NUMERIC_CHECK);
+}
+
+function login(Application $app, Request $request) {
+
+    $username   = $request->get('username');
+    $password   = $request->get('password');
+    $rememberMe = $request->get('rememberMe');
+
+    if (!$username || !$password) {
+        $app->abort(400, "Missing parameters.");
+    }
+
+    $account_query = "SELECT id, password FROM users WHERE username = '{$username}'";
+    $account       = $app['db']->fetchAssoc($account_query);
+
+    if (password_verify($password, $account["password"])) {
         $payload = array(
-            "iss" => "http://example.org",
+            "iss" => $request->headers->get('referer'),
             "iat" => time(),
             "exp" => ($rememberMe) ? time() + 60 * 60 * 24 * 360 : time() + 60 * 60 * 24, // expire in 1year or 24h
             "user" => [
-                "id" => 1,
-                "username" => "test",
+                "id" => $account["id"],
+                "username" => $username,
                 "isAdmin" => false,
             ]
         );

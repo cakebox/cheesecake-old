@@ -78,12 +78,15 @@ function login(Application $app, Request $request) {
         $app->abort(400, "Missing parameters.");
     }
 
-    $account_query = "SELECT id, password FROM users WHERE username = '{$username}'";
+    $account_query = "SELECT id, password, failed_logins FROM users WHERE username = '{$username}'";
     $account       = $app['db']->fetchAssoc($account_query);
 
     if (password_verify($password, $account["password"])) {
 
-        $app['db']->update('users', ['last_seen' => date('Y-m-d G:i:s')], ['id' => $account["id"]]);
+        $app['db']->update('users', [
+            'last_seen'     => date('Y-m-d G:i:s'),
+            'failed_logins' => 0
+        ], ['id' => $account["id"]]);
 
         $payload = array(
             "iss" => $request->headers->get('referer'),
@@ -97,6 +100,9 @@ function login(Application $app, Request $request) {
         );
 
         $jwt = \JWT::encode($payload, $app["api.secretKey"]);
+    }
+    else {
+        $app['db']->update('users', ['failed_logins' => $account["failed_logins"] + 1], ['id' => $account["id"]]);
     }
 
     return json_encode(["token" => $jwt], JSON_NUMERIC_CHECK);

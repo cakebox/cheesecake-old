@@ -82,6 +82,9 @@ function login(Application $app, Request $request) {
     $account       = $app['db']->fetchAssoc($account_query);
 
     if (password_verify($password, $account["password"])) {
+
+        $app['db']->update('users', ['last_seen' => date('Y-m-d G:i:s')], ['id' => $account["id"]]);
+
         $payload = array(
             "iss" => $request->headers->get('referer'),
             "iat" => time(),

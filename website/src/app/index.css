@@ -24,6 +24,10 @@ body {
     padding: 0.2em 0;
 }
 
+#jumbo {
+    padding: 30px;
+}
+
 .form-signin, .form-signup {
     max-width: 375px;
     padding: 15px;

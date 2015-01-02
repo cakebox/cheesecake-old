@@ -4,8 +4,142 @@
 
     <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)">{{ alert.msg }}</alert>
 
-    <!-- todo -->
+    <div class="jumbotron list-entries" id="jumbo">
+        <h4>News</h4>
+        <table class="table">
+            <tbody>
+                <tr class="entry">
+                    <td><a href="">01/01/2015</a></td>
+                    <td>Feliz ano nuevo !</td>
+                </tr>
+                <tr class="entry">
+                    <td><a href="">24/12/2014</a></td>
+                    <td>Feliz navidad !</td>
+                </tr>
+                <tr class="entry">
+                    <td><a href="">20/12/2014</a></td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ultrices non nisl sed faucibus. Mauris ornare ante non nunc...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 
+    <div class="jumbotron list-entries" id="jumbo">
+        <h4>Most downloaded</h4>
+        <div class="pull-right">
+            <a href="">Daily</a>,
+            <a href="">Weekly</a>,
+            <a href="">Monthly</a>
+        </div>
+        <table class="table table-striped">
+            <tbody>
+                <tr class="entry">
+                    <td><a href="">Doctor Who - 08x92 - Last Christmas</a></td>
+                    <td>French</td>
+                </tr>
+                <tr class="entry">
+                    <td><a href="">The Interview (2014)</a></td>
+                    <td>French</td>
+                </tr>
+                <tr class="entry">
+                    <td><a href="">The Judge (2014)</a></td>
+                    <td>Deutch</td>
+                </tr>
+                <tr class="entry">
+                    <td><a href="">The Judge (2014)</a></td>
+                    <td>Deutch</td>
+                </tr>
+                <tr class="entry">
+                    <td><a href="">The Judge (2014)</a></td>
+                    <td>Deutch</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="jumbotron list-entries col-md-6" id="jumbo">
+            <h4>New released</h4>
+            <table class="table table-striped">
+                <tbody>
+                    <tr class="entry">
+                        <td><a href="">Doctor Who - 08x92 - Last Christmas</a></td>
+                        <td>French</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Interview (2014)</a></td>
+                        <td>French</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Judge (2014)</a></td>
+                        <td>Deutch</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Interview (2014)</a></td>
+                        <td>French</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Interview (2014)</a></td>
+                        <td>French</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="jumbotron list-entries col-md-6" id="jumbo">
+            <h4>New upload</h4>
+            <table class="table table-striped">
+                <tbody>
+                    <tr class="entry">
+                        <td><a href="">Doctor Who - 08x92 - Last Christmas</a></td>
+                        <td>French</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Interview (2014)</a></td>
+                        <td>French</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Judge (2014)</a></td>
+                        <td>Deutch</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Interview (2014)</a></td>
+                        <td>French</td>
+                    </tr>
+                    <tr class="entry">
+                        <td><a href="">The Interview (2014)</a></td>
+                        <td>French</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="jumbotron list-entries" id="jumbo">
+        <h4>Idea Box</h4>
+        <h5>You don't know what to watch? Here a sugestion of TV Shows and Movies based on our database</h5>
+        <table>
+            <tbody>
+                <tr>
+                    <td class="entry">
+                        <a href=""><img src="http://static4.opensubtitles.org/gfx/thumbs/1/1/2/0/1520211.jpg"></a>
+                    </td>
+                    <td class="entry">
+                        <a href=""><img src="http://static4.opensubtitles.org/gfx/thumbs/1/1/2/0/1520211.jpg"></a>
+                    </td>
+                    <td class="entry">
+                        <a href=""><img src="http://static3.opensubtitles.org/gfx/thumbs/1/8/3/5/2015381.jpg"></a>
+                    </td>
+                    <td class="entry">
+                        <a href=""><img src="http://static6.opensubtitles.org/gfx/thumbs/7/6/8/1/1631867.jpg"></a>
+                    </td>
+                    <td class="entry">
+                        <a href=""><img src="http://static6.opensubtitles.org/gfx/thumbs/7/6/8/1/1631867.jpg"></a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <div ng-include="'components/footer/footer.html'"></div>

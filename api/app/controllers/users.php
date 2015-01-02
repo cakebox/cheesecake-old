@@ -88,16 +88,23 @@ function login(Application $app, Request $request) {
             'failed_logins' => 0
         ], ['id' => $account["id"]]);
 
-        $payload = array(
+        $access_query = "SELECT user_level FROM users_access WHERE user_id = " . $account['id'];
+        $access       = $app['db']->fetchAssoc($access_query);
+        $permissions = [];
+        foreach ($access as $accessLevel) {
+            array_push($permissions, $app["api.accessLevels"][$accessLevel]);
+        }
+
+        $payload = [
             "iss" => $request->headers->get('referer'),
             "iat" => time(),
             "exp" => ($rememberMe) ? time() + 60 * 60 * 24 * 360 : time() + 60 * 60 * 24, // expire in 1year or 24h
             "user" => [
                 "id" => $account["id"],
                 "username" => $username,
-                "isAdmin" => false,
+                "permissions" => $permissions,
             ]
-        );
+        ];
 
         $jwt = \JWT::encode($payload, $app["api.secretKey"]);
     }
@@ -116,16 +123,16 @@ function renew_token(Application $app, Request $request, $id) {
     if ($id !== $token["user"]["id"])
         $id = $token["user"]["id"];
 
-    $payload = array(
+    $payload = [
         "iss" =>  $request->headers->get('referer'),
         "iat" => time(),
         "exp" => time() + 60 * 60 * 24, // expire in 24h
         "user" => [
             "id" => $id,
             "username" => $token["user"]["username"],
-            "isAdmin" => $token["user"]["isAdmin"],
+            "permissions" => $token["user"]["permissions"]
             ]
-        );
+        ];
 
     $jwt = \JWT::encode($payload, $app["api.secretKey"]);
 

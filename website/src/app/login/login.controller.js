@@ -3,10 +3,6 @@
 angular.module('colabsubs')
     .controller('LoginCtrl', function ($rootScope, $scope, $location, $window, jwtHelper, User) {
 
-        if ($rootScope.user) {
-            $location.path('/');
-        }
-
         $scope.login = function () {
             var user = new User($scope.loginForm);
 

@@ -28,11 +28,26 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
         })
         .when('/account', {
             templateUrl: 'app/account/account.html',
-            controller: 'AccountCtrl'
+            controller: 'AccountCtrl',
+            access: {
+                loginRequired: true
+            }
         })
         .when('/logout', {
             templateUrl: 'app/logout/logout.html',
-            controller: 'LogoutCtrl'
+            controller: 'LogoutCtrl',
+            access: {
+                loginRequired: true
+            }
+        })
+        .when('/administration', {
+            templateUrl: 'app/administration/administration.html',
+            controller: 'AdministrationCtrl',
+            access: {
+                loginRequired: true,
+                permissionsRequired: ['Modo', 'Admin'],
+                permissionType: 'atLeastOne'
+            }
         })
         .otherwise({
             redirectTo: '/'
@@ -59,16 +74,53 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
 
         $httpProvider.interceptors.push('jwtInterceptor');
     })
-    .run(function ($rootScope, $window, $timeout, VERSION, jwtHelper) {
+    .run(function ($rootScope, $window, $timeout, $location, VERSION, jwtHelper, Authorization) {
 
         $rootScope.version = VERSION;
+        $rootScope.authVars = {
+            authorised: {
+                authorised: 0,
+                loginRequired: 1,
+                notAuthorised: 2
+            },
+            permissionCheckTypes: {
+                atLeastOne: 0,
+                combinationRequired: 1
+            }
+        };
 
         if ($window.localStorage.getItem('token') && !$rootScope.user) {
             // If the user refresh the page with F5, redecode again the token.
-            // A object can't be saved in localStorage ?
             var decodedToken = jwtHelper.decodeToken($window.localStorage.getItem('token'));
             $rootScope.user = decodedToken.user;
         }
+
+        var routeChangeRequiredAfterLogin = false,
+            loginRedirectUrl;
+
+        $rootScope.$on('$routeChangeStart', function (event, next, previous) {
+            var authorised;
+
+            if (routeChangeRequiredAfterLogin && next.originalPath !== '/login') {
+                routeChangeRequiredAfterLogin = false;
+                $location.path(loginRedirectUrl).replace();
+            } else if (next.access !== undefined) {
+                authorised = Authorization.authorize(next.access.loginRequired, next.access.permissionsRequired, next.access.permissionType);
+
+                if (authorised === $rootScope.authVars.authorised.loginRequired) {
+                    routeChangeRequiredAfterLogin = true;
+                    loginRedirectUrl = next.originalPath;
+                    $location.path('/login');
+                } else if (authorised === $rootScope.authVars.authorised.notAuthorised) {
+                    $location.path(previous ? previous.originalPath : '/').replace();
+                }
+            }
+
+            // Avoid a connected user to go to login and register pages
+            if ($rootScope.user && (next.originalPath === '/login' || next.originalPath === '/register')) {
+                $location.path(previous ? previous.originalPath : '/').replace();
+            }
+        });
 
         $rootScope.alerts = [];
 

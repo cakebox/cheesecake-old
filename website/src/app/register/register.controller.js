@@ -3,10 +3,6 @@
 angular.module('colabsubs')
     .controller('RegisterCtrl', function ($rootScope, $scope, $location, User) {
 
-        if ($rootScope.user) {
-            $location.path('/');
-        }
-
         $scope.register = function () {
 
             if ($scope.registerForm.password !== $scope.registerForm.passwordConfirm) {

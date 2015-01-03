@@ -1,0 +1,11 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<div class="container theme-showcase" role="main">
+
+    <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)">{{ alert.msg }}</alert>
+
+    <!-- todo -->
+
+</div>
+
+<div ng-include="'components/footer/footer.html'"></div>

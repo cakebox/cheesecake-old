@@ -18,6 +18,13 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
             templateUrl: 'app/movies/movies.html',
             controller: 'MoviesCtrl'
         })
+        .when('/upload', {
+            templateUrl: 'app/upload/upload.html',
+            controller: 'UploadCtrl',
+            access: {
+                loginRequired: true
+            }
+        })
         .when('/login', {
             templateUrl: 'app/login/login.html',
             controller: 'LoginCtrl'

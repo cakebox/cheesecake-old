@@ -4,7 +4,81 @@
 
     <alert ng-repeat="alert in alerts" type="{{ alert.type }}" close="closeAlert($index)">{{ alert.msg }}</alert>
 
-    <!-- todo -->
+    <form class="form" ng-submit="uploadSubtitle()" flow-init flow-file-added="!!{srt:1}[$file.getExtension()]">
+        <div class="jumbotron">
+            <h4>You want to upload a subtitle for...</h4>
+            <label class="checkbox-inline">
+                <input type="radio" ng-model="upload.type" value="movie"> a movie
+            </label>
+            <label class="checkbox-inline">
+                <input type="radio" ng-model="upload.type" value="tvshow"> a TV show
+            </label>
+        </div>
+
+        <div class="jumbotron" ng-show="upload.type">
+            <h4>Select the file you want to upload</h4>
+            <span class="btn btn-default" flow-btn flow-single-file>Upload File</span>
+            Only .srt files allowed.
+            <div ng-show="$flow.files.length">
+                <table class="table">
+                    <caption>Selected file:</caption>
+                    <thead>
+                        <tr>
+                            <th>Filename</th>
+                            <th>Size</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="file in $flow.files">
+                            <td>{{ file.name }} <span class="glyphicon glyphicon-remove" ng-click="file.cancel()"></span>
+                            </td>
+                            <td>{{ file.size | bytes }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="jumbotron" ng-show="$flow.files.length">
+            <h4>Add informations about this subtitle</h4>
+            <div class="form-group form-inline">
+                <select class="form-control" ng-options="l.language as l.name for l in languages" ng-model="upload.language">
+                    <option value="">-- Choose subtitle language ---</option>
+                </select>
+                <input type="text" class="form-control" ng-model="upload.version" id="inputSubtitleVersion"  placeholder="Video version" popover="Select the video version (DVDRip, WEB-DL...)"  popover-trigger="focus">
+            </div>
+            <div class="form-group form-inline">
+                <input type="text" class="form-control " ng-model="upload.name" id="inputSubtitleName" placeholder="Name">
+                <span ng-show="upload.type == 'movie'">
+                    <input type="number" class="form-control" ng-model="upload.year" id="inputSubtitleYear" placeholder="Release year">
+                </span>
+                <span ng-show="upload.type == 'tvshow'">
+                    <input type="number" class="form-control" ng-model="upload.season" id="inputSubtitleSeason" placeholder="Season">
+                    <input type="number" class="form-control" ng-model="upload.episode" id="inputSubtitleEpisode" placeholder="Episode">
+                </span>
+            </div>
+            <div class="form-group">
+                <tags-input ng-model="upload.tags" placeholder="Add tags (Theatrical, Unrated...)">
+                    <auto-complete source="loadTags($query)"></auto-complete>
+                </tags-input>
+            </div>
+            <div class="form-group">
+                <div class="checkbox">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="upload.highDefinition"> High Definition
+                    </label>
+                </div>
+                <div class="checkbox">
+                    <label class="checkbox-inline">
+                        <input type="checkbox" ng-model="upload.audioDescription"> Audio Description
+                    </label>
+                </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Upload</button>
+
+        </div>
+    </form>
 
 </div>
 

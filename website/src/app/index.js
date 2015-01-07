@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-jwt'])
+angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-jwt', 'ngTagsInput', 'flow'])
     .constant('VERSION', 'v0.0.0')
     .constant('API_URL', '//api.colabsubs.perso.dev')
     .config(function ($routeProvider, $httpProvider, jwtInterceptorProvider) {
@@ -60,14 +60,15 @@ angular.module('colabsubs', ['ngResource', 'ngRoute', 'ui.bootstrap', 'angular-j
             redirectTo: '/'
         });
 
-        jwtInterceptorProvider.tokenGetter = function(jwtHelper, $http, $window) {
+        jwtInterceptorProvider.tokenGetter = function(jwtHelper, $http, $window, API_URL) {
             var token = $window.localStorage.getItem('token');
 
             if (token && jwtHelper.isTokenExpired(token)) {
+                var decodedToken = jwtHelper.decodeToken(token);
                 return $http({
-                    url: '/users/:idUser/renew_token',
+                    url: API_URL + '/users/' + decodedToken.user.id + '/renew_token',
                     method: 'POST',
-                    skipAuthorization: true
+                    skipAuthorization: false
                 })
                 .then(function(response) {
                     token = response.token;

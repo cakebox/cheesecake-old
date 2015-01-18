@@ -7,7 +7,7 @@
 #
 # Hôte: localhost (MySQL 10.0.15-MariaDB)
 # Base de données: colabsubs
-# Temps de génération: 2015-01-06 18:20:34 +0000
+# Temps de génération: 2015-01-18 01:24:17 +0000
 # ************************************************************
 
 
@@ -62,7 +62,7 @@ CREATE TABLE `subtitles` (
   `high_definition` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `audio_description` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `tags` varchar(255) DEFAULT '',
-  `is_release` tinyint(1) unsigned NOT NULL DEFAULT '0',
+  `is_released` tinyint(1) unsigned NOT NULL DEFAULT '0',
   `creation_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -175,9 +175,9 @@ CREATE TABLE `users` (
   `username` varchar(255) NOT NULL DEFAULT '',
   `password` varchar(255) NOT NULL,
   `email` varchar(255) NOT NULL DEFAULT '',
-  `age` tinyint(3) unsigned DEFAULT NULL,
+  `birth_date` timestamp NULL DEFAULT NULL,
   `gender` tinyint(1) unsigned DEFAULT NULL,
-  `last_seen` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `last_seen` timestamp NULL DEFAULT NULL,
   `last_ip` varchar(15) NOT NULL DEFAULT '',
   `subscription_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `failed_logins` int(11) unsigned NOT NULL DEFAULT '0',
@@ -189,7 +189,7 @@ CREATE TABLE `users` (
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 
-INSERT INTO `users` (`id`, `username`, `password`, `email`, `age`, `gender`, `last_seen`, `last_ip`, `subscription_date`, `failed_logins`)
+INSERT INTO `users` (`id`, `username`, `password`, `email`, `birth_date`, `gender`, `last_seen`, `last_ip`, `subscription_date`, `failed_logins`)
 VALUES
 	(1,'user','$2y$10$AHlCzRePTRmzTKmb.WbZROznKmHGCpnmjErwfs2NngcYHk1lnVqOG','user@user.user',NULL,NULL,'0000-00-00 00:00:00','127.0.0.1','2015-01-02 18:43:59',0),
 	(2,'modo','$2y$10$l9IQju8HMi30izZukfkml.ecV/fjLFs5wsEV/gVIiAU.CBfFAh3yK','modo@modo.modo',NULL,NULL,'0000-00-00 00:00:00','127.0.0.1','2015-01-02 18:44:16',0),

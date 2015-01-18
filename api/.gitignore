@@ -1,5 +1,4 @@
-/tmp/
+/vendor/
 /logs/*.log
-/app/config/*.php
+/config/*.php
 composer.lock
-

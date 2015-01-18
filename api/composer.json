@@ -1,15 +1,15 @@
 {
-    "name": "colabsubs",
-    "type": "project",
-    "require": {
-        "php": ">=5.4.0",
+  "name": "colabsubs",
+  "type": "project",
+  "require": {
+    "php": ">=5.4.0",
 
-        "silex/silex": "~1.2",
-        "doctrine/dbal": "~2.5",
-        "monolog/monolog": "1.x",
-        "firebase/php-jwt": "~1.0"
-    },
-    "config": {
-        "vendor-dir": "tmp/composer/"
-    }
+    "silex/silex": "~1.2",
+    "doctrine/dbal": "~2.5",
+    "monolog/monolog": "1.x",
+    "firebase/php-jwt": "~1.0"
+  },
+  "autoload": {
+    "psr-0": {"CoLabSubs": "src/"}
+  }
 }

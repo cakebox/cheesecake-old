@@ -28,7 +28,6 @@ class UserRepository implements RepositoryInterface
     public function save($user)
     {
         $userData = array(
-            'name'          => $user->getName(),
             'username'      => $user->getUsername(),
             'password'      => $user->getPassword(),
             'mail'          => $user->getMail(),

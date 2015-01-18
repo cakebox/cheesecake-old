@@ -7,20 +7,20 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
-* Provides a way to handle JWT a bit more properly
-*/
+ * Provides a way to handle JWT a bit more properly
+ */
 class JWT
 {
     /**
-    * @var Application
-    */
+     * @var Application
+     */
     protected $app;
 
     /**
-    * Secret Key.
-    *
-    * @var string
-    */
+     * Secret Key.
+     *
+     * @var string
+     */
     protected $secretKey;
 
     public function __construct(Application $app, $secretKey)

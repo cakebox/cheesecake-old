@@ -6,8 +6,6 @@ use Silex\Application;
 use Silex\Provider\DoctrineServiceProvider;
 use Silex\Provider\MonologServiceProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Request;
 
 define('APPLICATION_ENV', getenv('APPLICATION_ENV') ?: 'production');
 
@@ -42,22 +40,22 @@ $app->register(new MonologServiceProvider(), [
 ]);
 
 /**
-* Register repositories
-*/
+ * Register repositories
+ */
 $app['repository.user'] = $app->share(function ($app) {
     return new CoLabSubs\Repository\UserRepository($app['db']);
 });
 
 /**
-* Register custom services
-*/
+ * Register custom services
+ */
 $app['jwt'] = $app->share(function ($app) {
     return new CoLabSubs\Service\JWT($app, $app['api.secretKey']);
 });
 
 /**
-* Register error handler
-*/
+ * Register error handler
+ */
 $app->error(function (\Exception $e, $code) use ($app) {
     if ($app['debug'])
         return;

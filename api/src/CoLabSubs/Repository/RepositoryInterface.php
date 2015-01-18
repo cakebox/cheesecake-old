@@ -2,7 +2,7 @@
 
 namespace CoLabSubs\Repository;
 
-/*
+/**
  * Repository interface.
  *
  * 'The Repository pattern just means putting a façade over your persistence

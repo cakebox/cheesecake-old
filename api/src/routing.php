@@ -3,5 +3,5 @@
 /**
  * User routes
  */
-$app->post('/users/login',       'CoLabSubs\Controller\UserController::loginAction');
-$app->post('/users/renew_token', 'CoLabSubs\Controller\UserController::renewTokenAction');
+$app->post('/users/login',       'Cheesecake\Controller\UserController::loginAction');
+$app->post('/users/renew_token', 'Cheesecake\Controller\UserController::renewTokenAction');

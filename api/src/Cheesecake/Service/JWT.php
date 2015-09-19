@@ -1,6 +1,6 @@
 <?php
 
-namespace CoLabSubs\Service;
+namespace Cheesecake\Service;
 
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;

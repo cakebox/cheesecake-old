@@ -2,20 +2,16 @@
 
 use Monolog\Logger;
 
-/*
- *
+/**
  * Database Connection
- *
  */
-$app['database.dbname'] = 'colabsubs';
+$app['database.dbname'] = 'cheesecake';
 $app['database.host']   = '127.0.0.1';
 $app['database.user']   = 'root';
 $app['database.passwd'] = '';
 
-/*
- *
+/**
  * API
- *
  */
 $app['api.secretKey'] = '';
 $app['api.accessLevels'] = [
@@ -24,10 +20,13 @@ $app['api.accessLevels'] = [
     2 => 'admin'
 ];
 
-/*
- *
+/**
  * Log
- *
  */
-$app['log.location'] = __DIR__ . '/../logs/colabsubs.log';
+$app['log.location'] = __DIR__ . '/../logs/cheesecake.log';
 $app['log.level']    = Logger::WARNING;
+
+/**
+ * Miscellaneous
+ */
+$app['timezone'] = 'UTC';

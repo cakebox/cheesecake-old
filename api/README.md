@@ -10,23 +10,23 @@ composer install
 Edit the /etc/hosts an add this line
 
 ```
-127.0.0.1 api.colabsubs.perso.dev
+127.0.0.1 api.cheesecake.io
 ```
 
-Create a new file something like /etc/apache2/site-avalaible/api.colabsubs.perso.dev and adapt the configuration (paths...)
+Create a new file something like /etc/apache2/site-avalaible/api.cheesecake.io and adapt the configuration (paths...)
 
 ```
-<VirtualHost api.colabsubs.perso.dev:80>
+<VirtualHost api.cheesecake.io:80>
     ServerAdmin mail@mail.fr
-    ServerName api.colabsubs.perso.dev
+    ServerName api.cheesecake.io
 
     SetEnv APPLICATION_ENV development
     Header set Access-Control-Allow-Origin "*"
     Header set Access-Control-Allow-Headers X-Requested-With,Content-Type,Authorization
     #Header set Access-Control-Allow-Methods GET,POST,PUT,DELETE,OPTIONS
 
-    DocumentRoot "/home/myuser/mywebsites/colabsubs/api/public/"
-    <Directory "/home/myuser/mywebsites/colabsubs/api/public/">
+    DocumentRoot "/home/myuser/mywebsites/cheesecake/api/public/"
+    <Directory "/home/myuser/mywebsites/cheesecake/api/public/">
         Options Indexes MultiViews FollowSymLinks
         Require all granted
 
@@ -39,8 +39,8 @@ Create a new file something like /etc/apache2/site-avalaible/api.colabsubs.perso
     </Directory>
 
     #LogLevel debug
-    ErrorLog "/var/log/apache2/perso.dev-error.log"
-    CustomLog "/var/log/apache2/perso.dev-access.log" common
+    ErrorLog "/var/log/apache2/api.cheesecake.io-error.log"
+    CustomLog "/var/log/apache2/api.cheesecake.io-access.log" common
 </VirtualHost>
 ```
 

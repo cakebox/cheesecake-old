@@ -1,9 +1,9 @@
 <?php
 
-namespace CoLabSubs\Repository;
+namespace Cheesecake\Repository;
 
 use Doctrine\DBAL\Connection;
-use CoLabSubs\Entity\User;
+use Cheesecake\Entity\User;
 
 /**
  * User repository

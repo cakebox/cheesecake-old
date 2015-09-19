@@ -19,7 +19,13 @@ if (APPLICATION_ENV != 'production') {
     $app['controllers']->requireHttps();
 }
 
-require_once __DIR__ . '/../config/colabsubs.php';
+if ($app['debug']) {
+    require_once __DIR__ . '/../config/developement.php';
+} else {
+    require_once __DIR__ . '/../config/production.php';
+}
+
+date_default_timezone_set($app['timezone']);
 
 /**
  * Register service providers

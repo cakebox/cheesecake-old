@@ -1,6 +1,6 @@
 <?php
 
-namespace CoLabSubs\Entity;
+namespace Cheesecake\Entity;
 
 class User
 {

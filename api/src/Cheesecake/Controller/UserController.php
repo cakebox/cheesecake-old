@@ -1,11 +1,11 @@
 <?php
 
-namespace CoLabSubs\Controller;
+namespace Cheesecake\Controller;
 
-use CoLabSubs\Entity\User;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Cheesecake\Entity\User;
 
 class UserController
 {

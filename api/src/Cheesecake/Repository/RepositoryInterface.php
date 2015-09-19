@@ -1,6 +1,6 @@
 <?php
 
-namespace CoLabSubs\Repository;
+namespace Cheesecake\Repository;
 
 /**
  * Repository interface.

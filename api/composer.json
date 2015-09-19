@@ -1,15 +1,15 @@
 {
-  "name": "colabsubs",
+  "name": "cheesecake",
   "type": "project",
   "require": {
-    "php": ">=5.4.0",
+    "php": ">=5.5.0",
 
-    "silex/silex": "~1.2",
+    "silex/silex": "~1.3",
     "doctrine/dbal": "~2.5",
-    "monolog/monolog": "1.x",
-    "firebase/php-jwt": "~1.0"
+    "monolog/monolog": "~1.17",
+    "firebase/php-jwt": "~3.0"
   },
   "autoload": {
-    "psr-0": {"CoLabSubs": "src/"}
+    "psr-0": {"Cheesecake": "src/"}
   }
 }

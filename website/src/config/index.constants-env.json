@@ -1,0 +1,10 @@
+{
+  "production": {
+    "FRONTEND_URL": "//cheesecake.com",
+    "BACKEND_URL": "//api.cheesecake.com"
+  },
+  "developement": {
+    "FRONTEND_URL": "//cheesecake.io",
+    "BACKEND_URL": "//api.cheesecake.io"
+  }
+}

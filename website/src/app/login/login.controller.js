@@ -1,29 +1,34 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('colabsubs')
-    .controller('LoginCtrl', function ($rootScope, $scope, $location, $window, jwtHelper, User) {
+    angular
+        .module('cheesecake')
+        .controller('LoginCtrl', LoginCtrl);
 
-        $scope.login = function () {
-            var user = new User($scope.loginForm);
+        function LoginCtrl($log, $rootScope, $scope, $location, $window, jwtHelper, User) {
 
-            user.$login()
-            .then(function(response) {
-                if (response.token) {
-                    $window.localStorage.setItem('token', response.token);
+            $scope.login = function () {
+                var user = new User($scope.loginForm);
 
-                    var decodedToken = jwtHelper.decodeToken(response.token);
-                    $rootScope.user = decodedToken.user;
+                user.$login()
+                .then(function(response) {
+                    if (response.token) {
+                        $window.localStorage.setItem('token', response.token);
 
-                    $location.path('/');
-                }
-                else {
-                    $rootScope.alerts.push({type: 'danger', msg: 'Username or password are wrong.'});
-                }
-            })
-            .catch(function(error) {
-                console.log('>>> Failed to post datas');
-                console.log(error);
-            });
-        };
-    })
-;
+                        var decodedToken = jwtHelper.decodeToken(response.token);
+                        $rootScope.user = decodedToken.user;
+
+                        $location.path('/');
+                    }
+                    else {
+                        $rootScope.alerts.push({type: 'danger', msg: 'Username or password are wrong.'});
+                    }
+                })
+                .catch(function(error) {
+                    $log.log('>>> Failed to post datas');
+                    $log.log(error);
+                });
+            };
+        }
+
+})();

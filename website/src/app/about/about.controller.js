@@ -3,9 +3,9 @@
 
     angular
         .module('cheesecake')
-        .controller('HomeCtrl', HomeCtrl);
+        .controller('AboutCtrl', AboutCtrl);
 
-        function HomeCtrl() {
+        function AboutCtrl() {
 
         }
 

@@ -1,8 +1,13 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('colabsubs')
-    .controller('AccountCtrl', function ($rootScope, $scope, $location, User) {
+    angular
+        .module('cheesecake')
+        .controller('AccountCtrl', AccountCtrl);
 
-        $scope.user.informations = User.get({id: $rootScope.user.id});
-    })
-;
+        function AccountCtrl($rootScope, $scope, User) {
+
+            $scope.user.informations = User.get({id: $rootScope.user.id});
+        }
+
+})();

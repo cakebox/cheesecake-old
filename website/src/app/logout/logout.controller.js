@@ -1,11 +1,15 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('colabsubs')
-    .controller('LogoutCtrl', function ($rootScope, $scope, $location, $window) {
+    angular
+        .module('cheesecake')
+        .controller('LogoutCtrl', LogoutCtrl);
 
-        delete $window.localStorage.token;
-        delete $window.localStorage.user;
-        delete $rootScope.user;
-        $location.path('/');
-    })
-;
+        function LogoutCtrl($rootScope, $location, $window) {
+            delete $window.localStorage.token;
+            delete $window.localStorage.user;
+            delete $rootScope.user;
+            $location.path('/');
+        }
+
+})();

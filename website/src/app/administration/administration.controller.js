@@ -1,7 +1,12 @@
-'use strict';
+(function() {
+    'use strict';
 
-angular.module('colabsubs')
-    .controller('AdministrationCtrl', function ($rootScope, $scope, $location, User) {
+    angular
+        .module('cheesecake')
+        .controller('AdministrationCtrl', AdministrationCtrl);
 
-    })
-;
+        function AdministrationCtrl() {
+
+        }
+
+})();

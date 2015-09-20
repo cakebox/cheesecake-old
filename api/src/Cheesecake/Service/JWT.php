@@ -5,6 +5,7 @@ namespace Cheesecake\Service;
 use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use \Firebase\JWT\JWT;
 
 /**
  * Provides a way to handle JWT a bit more properly
@@ -23,22 +24,30 @@ class JWT
      */
     protected $secretKey;
 
+    protected $decodedToken;
+
     public function __construct(Application $app, $secretKey)
     {
         $this->app = $app;
         $this->secretKey = $secretKey;
     }
 
-    public function createToken($referer, $exp, $user)
+    public function createToken(Request $request, $exp, $user)
     {
+        $rand_val = substr(str_shuffle('abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'), 0, 6);
+
         $payload = [
-            'iss' => $referer,
-            'iat' => time(),
+            'iss' => $request->getClientIp(),
+            'sub' => '',
+            'aud' => 'http://sheaker.com',
             'exp' => $exp,
+            'nbf' => time(),
+            'iat' => time(),
+            'jti' => hash('sha256', time() . $rand_val),
             'user' => $user
         ];
 
-        $token = \JWT::encode($payload, $this->secretKey);
+        $token = JWT::encode($payload, $this->secretKey);
 
         return $token;
     }
@@ -54,12 +63,17 @@ class JWT
         // $authorizationHeader should be in that form: Bearer THE_TOKEN
         $token = explode(' ', $authorizationHeader)[1];
         try {
-            $decoded_token = \JWT::decode($token, $this->secretKey);
+            $this->decodedToke = JWT::decode($token, $this->secretKey, array('HS256'));
         }
         catch(UnexpectedValueException $ex) {
             $this->app->abort(Response::HTTP_UNAUTHORIZED, 'Invalid token');
         }
 
         return $decoded_token;
+    }
+
+    public function getDecodedToken()
+    {
+        return $this->decodedToken;
     }
 }

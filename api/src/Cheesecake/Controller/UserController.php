@@ -37,7 +37,7 @@ class UserController
             //    array_push($permissions, $app['api.accessLevels'][$accessLevel]);
             //}
 
-            $exp = ($rememberMe) ? time() + 60 * 60 * 24 * 360 : time() + 60 * 60 * 24; // expire in 1year or 24h
+            $exp = ($rememberMe) ? time() + 60 * 60 * 24 * 30 : time() + 60 * 60 * 24; // expire in 30 days or 24h
             $user = [
                 'id'          => $user->getId(),
                 'username'    => $user->getUsername(),
@@ -45,7 +45,7 @@ class UserController
                 'rememberMe'  => $rememberMe
             ];
 
-            $token = $app['jwt']->createToken($request->headers->get('referer'), $exp, $user);
+            $token = $app['jwt']->createToken($request, $exp, $user);
         }
         else {
             $user->setFailedLogins($user->getFailedLogins() + 1);
@@ -54,15 +54,5 @@ class UserController
         }
 
         return json_encode(['token' => $token], JSON_NUMERIC_CHECK);
-    }
-
-    public function renewTokenAction(Request $request, Application $app)
-    {
-        $oldToken = $app['jwt']->checkIfTokenIsPresentAndLikeAVirgin($request);
-
-        $exp = ($oldToken['rememberMe']) ? time() + 60 * 60 * 24 * 360 : time() + 60 * 60 * 24; // expire in 1year or 24h
-        $newToken = $app['jwt']->createToken($request->headers->get('referer'), $exp, $oldToken['user']);
-
-        return json_encode(['token' => $newToken], JSON_NUMERIC_CHECK);
     }
 }

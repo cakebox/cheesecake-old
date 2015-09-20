@@ -8,27 +8,18 @@
     /** @ngInject */
     function config($httpProvider, jwtInterceptorProvider) {
 
-        jwtInterceptorProvider.tokenGetter = function(jwtHelper, $http, $window, API_URL) {
-            var token = $window.localStorage.getItem('token');
-
-            if (token && jwtHelper.isTokenExpired(token)) {
-                var decodedToken = jwtHelper.decodeToken(token);
-                return $http({
-                    url: API_URL + '/users/' + decodedToken.user.id + '/renew_token',
-                    method: 'POST',
-                    skipAuthorization: false
-                })
-                .then(function(response) {
-                    token = response.token;
-                    $window.localStorage.setItem('token', response.token);
-                    return token;
-                });
-            } else {
-                return token;
-            }
-        };
-
+        jwtInterceptorProvider.tokenGetter = getToken;
         $httpProvider.interceptors.push('jwtInterceptor');
+
+        /*@ngInject*/
+        function getToken(config, $window) {
+            // Skip authentication for any requests ending in .html
+            if (config.url.substr(config.url.length - 5) === '.html') {
+                return null;
+            }
+
+            return $window.localStorage.getItem('token');
+        }
     }
 
 })();

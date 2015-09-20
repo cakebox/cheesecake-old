@@ -5,18 +5,18 @@
         .module('cheesecake')
         .factory('User', User);
 
-        function User($resource, API_URL) {
+        function User($resource, BACKEND_URL) {
             var User, actions;
 
             actions = {
                 login: {
                     method: 'POST',
-                    url: API_URL + '/users/login',
+                    url: BACKEND_URL + '/users/login',
                     skipAuthorization: true
                 }
             };
 
-            User = $resource(API_URL + '/users/:id', null, actions);
+            User = $resource(BACKEND_URL + '/users/:id', null, actions);
             return User;
         }
 
